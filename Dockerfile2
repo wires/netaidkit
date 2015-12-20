@@ -1,0 +1,9 @@
+FROM netaidkit:latest
+
+# do rest of build
+RUN echo `date +%s` > /netaidkit/files/etc/nak-release
+RUN cd /netaidkit/openwrt && sh -c "tar cf - --exclude=openwrt --exclude=.git ./../ | tar xvf -"
+
+RUN cd /netaidkit/openwrt && ./scripts/feeds update && ./scripts/feeds install -a && cat netaidkit.config >> .config && make oldconfig && make V=s && rm -rf build_dir/target*/nak-web-*
+
+VOLUME /dist

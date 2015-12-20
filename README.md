@@ -13,8 +13,10 @@ process. First install docker, then
 	docker-machine create -d virtualbox dev
 	eval (docker-machine env dev)
 	docker build -t netaidkit:latest .
+	docker build -t netaidkit-build:latest -f Dockerfile2
 
-	docker run -v (pwd):/netaidkit -w /netaidkit netaidkit sh build.sh
+	docker run -v (pwd):/dist -w /netaidkit/openwrt/ netaidkit-build cp bin/ar71xx/openwrt-ar71xx-generic-gl-inet-6416A-v1-squashfs-factory.bin /dist/netaidkit_firmware.bin
+	docker run -v (pwd):/dist -w /netaidkit/openwrt/ netaidkit-build cp bin/ar71xx/openwrt-ar71xx-generic-gl-inet-6416A-v1-squashfs-sysupdate.bin /dist/netaidkit_firmware_sysupgrade.bin
 
 
 Manually building the firmware image
