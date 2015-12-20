@@ -3,7 +3,21 @@ NetAidKit
 
 Standalone VPN/Tor router for journalists and activists.
 
-Building the firmware image
+
+Using docker for development
+----
+
+When you are on Mac OS you can use docker to simplify the image build
+process. First install docker, then
+
+	docker-machine create -d virtualbox dev
+	eval (docker-machine env dev)
+	docker build -t netaidkit:latest .
+
+	docker run -v (pwd):/netaidkit -w /netaidkit netaidkit sh build.sh
+
+
+Manually building the firmware image
 ----
 
 Install dependencies
